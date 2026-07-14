@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\GastoPropuestoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VotoController;
@@ -14,6 +15,7 @@ Route::prefix('v1')->group(function () {
         Route::get('me', [AuthController::class, 'me']);
 
         Route::apiResource('usuarios', UsuarioController::class);
+        Route::apiResource('categorias', CategoriaController::class)->only(['index', 'store']);
         Route::apiResource('gastos-propuestos', GastoPropuestoController::class);
         Route::post('gastos-propuestos/{gastoPropuesto}/votar', [VotoController::class, 'votar']);
     });

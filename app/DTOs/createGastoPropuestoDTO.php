@@ -7,7 +7,7 @@ use App\Http\Requests\StoreGastoPropuestoRequest;
 class CreateGastoPropuestoDTO
 {
     public function __construct(
-        public readonly string $categoria,
+        public readonly int $categoria_id,
         public readonly string $nombre,
         public readonly float $precio_unitario,
         public readonly int $cantidad,
@@ -17,7 +17,7 @@ class CreateGastoPropuestoDTO
     public static function fromRequest(StoreGastoPropuestoRequest $request, int $usuario_id): self
     {
         return new self(
-            categoria: $request->validated('categoria'),
+            categoria_id: (int) $request->validated('categoria_id'),
             nombre: $request->validated('nombre'),
             precio_unitario: (float) ($request->validated('precio_unitario') ?? 0.00),
             cantidad: (int) ($request->validated('cantidad') ?? 0),
@@ -28,7 +28,7 @@ class CreateGastoPropuestoDTO
     public function toArray(): array
     {
         return [
-            'categoria' => $this->categoria,
+            'categoria_id' => $this->categoria_id,
             'nombre' => $this->nombre,
             'precio_unitario' => $this->precio_unitario,
             'cantidad' => $this->cantidad,

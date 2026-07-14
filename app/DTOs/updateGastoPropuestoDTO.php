@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateGastoPropuestoRequest;
 class UpdateGastoPropuestoDTO
 {
     public function __construct(
-        public readonly ?string $categoria = null,
+        public readonly ?int $categoria_id = null,
         public readonly ?string $nombre = null,
         public readonly ?float $precio_unitario = null,
         public readonly ?int $cantidad = null,
@@ -16,7 +16,7 @@ class UpdateGastoPropuestoDTO
     public static function fromRequest(UpdateGastoPropuestoRequest $request): self
     {
         return new self(
-            categoria: $request->validated('categoria'),
+            categoria_id: $request->has('categoria_id') ? (int) $request->validated('categoria_id') : null,
             nombre: $request->validated('nombre'),
             precio_unitario: $request->has('precio_unitario') ? (float) $request->validated('precio_unitario') : null,
             cantidad: $request->has('cantidad') ? (int) $request->validated('cantidad') : null,
@@ -26,7 +26,7 @@ class UpdateGastoPropuestoDTO
     public function toArray(): array
     {
         $data = [
-            'categoria' => $this->categoria,
+            'categoria_id' => $this->categoria_id,
             'nombre' => $this->nombre,
             'precio_unitario' => $this->precio_unitario,
             'cantidad' => $this->cantidad,

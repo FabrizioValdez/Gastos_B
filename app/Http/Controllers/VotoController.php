@@ -35,6 +35,7 @@ class VotoController extends Controller
             ]);
         }
 
+        $gastoPropuesto->load(['categoria', 'votos.usuario']);
         $gastoPropuesto->loadCount(['votosPositivos', 'votosNegativos']);
 
         return response()->json($gastoPropuesto);

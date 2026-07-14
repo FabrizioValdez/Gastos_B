@@ -9,7 +9,7 @@ class GastoPropuesto extends Model
     protected $table = 'gasto_propuesto';
 
     protected $fillable = [
-        'categoria',
+        'categoria_id',
         'nombre',
         'precio_unitario',
         'cantidad',
@@ -22,6 +22,11 @@ class GastoPropuesto extends Model
         'cantidad' => 'float',
         'total' => 'float',
     ];
+
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 
     public function votos()
     {
