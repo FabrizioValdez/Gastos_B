@@ -40,11 +40,15 @@ class GastoPropuestoService
 
     public function findAll(): \Illuminate\Database\Eloquent\Collection
     {
-        return GastoPropuesto::withCount(['votosPositivos', 'votosNegativos'])->get();
+        return GastoPropuesto::with(['votos.usuario'])
+            ->withCount(['votosPositivos', 'votosNegativos'])
+            ->get();
     }
 
     public function findById(int $id): ?GastoPropuesto
     {
-        return GastoPropuesto::withCount(['votosPositivos', 'votosNegativos'])->find($id);
+        return GastoPropuesto::with(['votos.usuario'])
+            ->withCount(['votosPositivos', 'votosNegativos'])
+            ->find($id);
     }
 }
