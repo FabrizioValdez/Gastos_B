@@ -14,8 +14,6 @@ class GastoPropuesto extends Model
         'precio_unitario',
         'cantidad',
         'total',
-        'votos_positivos',
-        'votos_negativos',
         'usuario_id',
     ];
 
@@ -23,7 +21,20 @@ class GastoPropuesto extends Model
         'precio_unitario' => 'float',
         'cantidad' => 'float',
         'total' => 'float',
-        'votos_positivos' => 'integer',
-        'votos_negativos' => 'integer',
     ];
+
+    public function votos()
+    {
+        return $this->hasMany(VotoPropuesta::class, 'gasto_propuesto_id');
+    }
+
+    public function votosPositivos()
+    {
+        return $this->hasMany(VotoPropuesta::class, 'gasto_propuesto_id')->where('voto', 1);
+    }
+
+    public function votosNegativos()
+    {
+        return $this->hasMany(VotoPropuesta::class, 'gasto_propuesto_id')->where('voto', 0);
+    }
 }

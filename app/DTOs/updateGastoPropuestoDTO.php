@@ -11,8 +11,6 @@ class UpdateGastoPropuestoDTO
         public readonly ?string $nombre = null,
         public readonly ?float $precio_unitario = null,
         public readonly ?int $cantidad = null,
-        public readonly ?int $votos_positivos = null,
-        public readonly ?int $votos_negativos = null,
     ) {}
 
     public static function fromRequest(UpdateGastoPropuestoRequest $request): self
@@ -22,8 +20,6 @@ class UpdateGastoPropuestoDTO
             nombre: $request->validated('nombre'),
             precio_unitario: $request->has('precio_unitario') ? (float) $request->validated('precio_unitario') : null,
             cantidad: $request->has('cantidad') ? (int) $request->validated('cantidad') : null,
-            votos_positivos: $request->has('votos_positivos') ? (int) $request->validated('votos_positivos') : null,
-            votos_negativos: $request->has('votos_negativos') ? (int) $request->validated('votos_negativos') : null,
         );
     }
 
@@ -34,8 +30,6 @@ class UpdateGastoPropuestoDTO
             'nombre' => $this->nombre,
             'precio_unitario' => $this->precio_unitario,
             'cantidad' => $this->cantidad,
-            'votos_positivos' => $this->votos_positivos,
-            'votos_negativos' => $this->votos_negativos,
         ];
 
         return array_filter($data, fn($value) => $value !== null);

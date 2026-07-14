@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GastoPropuestoController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\VotoController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -14,6 +15,7 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('usuarios', UsuarioController::class);
         Route::apiResource('gastos-propuestos', GastoPropuestoController::class);
+        Route::post('gastos-propuestos/{gastoPropuesto}/votar', [VotoController::class, 'votar']);
     });
 
     Route::post('register', [AuthController::class, 'register']);
