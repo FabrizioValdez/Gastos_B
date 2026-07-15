@@ -17,10 +17,12 @@ class usuario extends Authenticatable
         'password',
         'gasto',
         'habilitado',
-    ];  
-    /**
-     * Mutador automático para encriptar contraseñas de forma segura.
-     */
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
     protected $casts = [
         'password' => 'hashed', // <-- ¡Magia! Laravel se encarga del bcrypt automáticamente
         'gasto' => 'float',

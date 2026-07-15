@@ -13,16 +13,24 @@ return new class extends Migration
     {
         Schema::create('gasto_propuesto', function (Blueprint $table) {
             $table->id();
-            $table->string('categoria');
+
+            $table->foreignId('categoria_id')
+                ->nullable()
+                ->constrained('categorias')
+                ->nullOnDelete();
+
             $table->string('nombre');
             $table->decimal('precio_unitario', 10, 2);
             $table->integer('cantidad');
             $table->decimal('total', 10, 2);
             $table->tinyInteger('votos_positivos');
             $table->tinyInteger('votos_negativos');
+
             $table->foreignId('usuario_id')
-            ->constrained('usuarios')
-            ->onDelete('cascade');
+                ->constrained('usuarios')
+                ->onDelete('cascade');
+
+            $table->boolean('votacion_abierta')->default(true);
 
             $table->timestamps();
         });

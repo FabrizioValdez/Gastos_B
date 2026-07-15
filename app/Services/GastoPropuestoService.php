@@ -38,11 +38,13 @@ class GastoPropuestoService
         return $gastoPropuesto->delete();
     }
 
-    public function findAll(): \Illuminate\Database\Eloquent\Collection
+    public function findAll(): array
     {
         return GastoPropuesto::with(['categoria', 'votos.usuario'])
             ->withCount(['votosPositivos', 'votosNegativos'])
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(50)
+            ->items();
     }
 
     public function findById(int $id): ?GastoPropuesto

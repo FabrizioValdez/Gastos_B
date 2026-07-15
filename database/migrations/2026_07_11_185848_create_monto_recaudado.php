@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('monto_recaudado', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('suma_total')
+            $table->foreignId('usuario_id')
             ->constrained('usuarios')
             ->onDelete('cascade');
             $table->decimal('monto', 10, 2);
