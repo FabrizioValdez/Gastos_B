@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateGastoPropuestoRequest;
 use App\Models\GastoPropuesto;
 use App\Services\GastoPropuestoService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class GastoPropuestoController extends Controller
 {
@@ -50,5 +51,21 @@ class GastoPropuestoController extends Controller
         $this->gastoPropuestoService->delete($gastoPropuesto);
         
         return response()->json(null, 204);
+    }
+
+    public function toggleVotacion(Request $request, GastoPropuesto $gastoPropuesto): JsonResponse
+    {
+        if ($request->user()->id !== $gastoPropuesto->usuario_id) {
+            return response()->json(['message' => 'Solo el creador del gasto puede cerrar o abrir la votación'], 403);
+        }
+
+        $gastoPropuesto->update([
+            'votacion_abierta' => !$gastoPropuesto->votacion_abierta,
+        ]);
+
+        $gastoPropuesto->load(['categoria', 'votos.usuario']);
+        $gastoPropuesto->loadCount(['votosPositivos', 'votosNegativos']);
+
+        return response()->json($gastoPropuesto);
     }
 }

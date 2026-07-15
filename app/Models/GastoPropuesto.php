@@ -15,12 +15,14 @@ class GastoPropuesto extends Model
         'cantidad',
         'total',
         'usuario_id',
+        'votacion_abierta',
     ];
 
     protected $casts = [
         'precio_unitario' => 'float',
         'cantidad' => 'float',
         'total' => 'float',
+        'votacion_abierta' => 'boolean',
     ];
 
     public function categoria()

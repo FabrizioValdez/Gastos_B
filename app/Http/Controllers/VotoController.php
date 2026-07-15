@@ -11,6 +11,10 @@ class VotoController extends Controller
 {
     public function votar(Request $request, GastoPropuesto $gastoPropuesto): JsonResponse
     {
+        if (!$gastoPropuesto->votacion_abierta) {
+            return response()->json(['message' => 'La votación está cerrada para este gasto'], 403);
+        }
+
         $request->validate([
             'voto' => ['required', 'integer', 'in:0,1'],
         ]);
