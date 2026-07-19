@@ -16,7 +16,8 @@ Route::prefix('v1')->group(function () {
 
         Route::apiResource('usuarios', UsuarioController::class);
         Route::apiResource('categorias', CategoriaController::class)->only(['index', 'store']);
-        Route::apiResource('gastos-propuestos', GastoPropuestoController::class);
+        Route::apiResource('gastos-propuestos', GastoPropuestoController::class)
+            ->parameters(['gastos-propuestos' => 'gastoPropuesto']);
         Route::post('gastos-propuestos/{gastoPropuesto}/votar', [VotoController::class, 'votar']);
         Route::post('gastos-propuestos/{gastoPropuesto}/toggle-votacion', [GastoPropuestoController::class, 'toggleVotacion']);
     });

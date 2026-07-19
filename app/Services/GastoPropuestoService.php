@@ -30,7 +30,11 @@ class GastoPropuestoService
             $gastoPropuesto->update($data);
         }
 
-        return $gastoPropuesto->fresh();
+        $gastoPropuesto->load(['categoria', 'votos.usuario']);
+        $gastoPropuesto->votos_positivos_count = $gastoPropuesto->votos->where('voto', 1)->count();
+        $gastoPropuesto->votos_negativos_count = $gastoPropuesto->votos->where('voto', 0)->count();
+
+        return $gastoPropuesto;
     }
 
     public function delete(GastoPropuesto $gastoPropuesto): bool
