@@ -29,4 +29,4 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
 EXPOSE 8080
 
 # Iniciar servidor web dinámico para Render
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+CMD sh -c "php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}"
