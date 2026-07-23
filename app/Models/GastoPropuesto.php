@@ -44,4 +44,8 @@ class GastoPropuesto extends Model
     {
         return $this->hasMany(VotoPropuesta::class, 'gasto_propuesto_id')->where('voto', 0);
     }
+    public function compradores()
+    {
+        return $this->hasMany(Comprador::class, 'gasto_propuesto_id');
+    }
 }
